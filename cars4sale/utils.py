@@ -32,6 +32,12 @@ def drop_url_query(value):
     url = urllib.parse.urlparse(value)
     return url.scheme + '://' + url.netloc + url.path
 
+def add_url_scheme(value):
+    if value.startswith('//'):
+        return 'http:' + value
+    else:
+        return value
+
 def to_int(value):
     if value.isdigit():
         return int(value)

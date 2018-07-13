@@ -47,7 +47,8 @@ class DeAutosSpider(scrapy.Spider):
         loader.add_xpath("currency", base_xpath + "//div[contains(@class,'price')]/meta[@itemprop='priceCurrency']/@content")
         loader.add_xpath("km", base_xpath + "//div[contains(@class,'data')]/span[3]/text()")
         loader.add_value("href", [response.url])
-        loader.add_xpath("img", "//div[@id='main-carousel-vip']//a/@href")
+        loader.add_xpath("img", "//div[@id='main-carousel-vip']//img/@data-src")
+        loader.add_xpath("img", "//div[@id='main-carousel-vip']//img/@src")
         loader.add_value("source", [self.name])
         loader.add_value("date", [datetime.today()])
 
