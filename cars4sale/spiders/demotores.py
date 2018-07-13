@@ -44,10 +44,13 @@ class DemotoresSpider(scrapy.Spider):
 
     def parse_ads(self, response):
         brand, model, version = self._brands_sel(response).xpath("./div[contains(@class,'checked')]/div/a/label/text()").extract()
-        ads = response.xpath("//div[@id='listing-items']/div[contains(@class,'listing-item')]/div/div[1]//h4/a/@href")
+        ads = response.xpath("//div[@id='listing-items']/div[contains(@class,'listing-item')]/div[contains(@class,'columns')]")
         for ad in ads:
-            cb = functools.partial(self.parse_ad, brand, model, version)
-            yield scrapy.Request(response.urljoin(ad.extract()), callback=cb)
+            price = ad.xpath("./div[2]//h4[@class='price']/text()").extract_first().strip()
+            if price.startswith("$") or price.startswith("USD"):
+                href = ad.xpath("./div[1]//h4/a/@href").extract_first()
+                cb = functools.partial(self.parse_ad, brand, model, version)
+                yield scrapy.Request(response.urljoin(href), callback=cb)
 
         next_page = response.xpath("//div[contains(@class,'pagination-container')]//ul/li[@class='pagination__btn-next']/a/@href").extract_first()
         if next_page is not None:

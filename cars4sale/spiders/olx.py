@@ -30,7 +30,7 @@ class OlxSpider(scrapy.Spider):
     def parse_ads(self, brand, model, response):
         for ad in response.xpath("//main[@id='items-list-view']/ul/li/div"):
             price = ad.xpath("./p[@class='items-price']/a/text()").extract_first().strip()
-            if price.startswith('$') or price.startswith('USD'):
+            if price.startswith("$") or price.startswith("USD"):
                 cb = functools.partial(self.parse_ad, brand, model)
                 href = "https:" + ad.xpath("./a[1]/@href").extract_first()
                 yield scrapy.Request(href, callback=cb)
