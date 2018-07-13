@@ -21,8 +21,8 @@ NEWSPIDER_MODULE = 'cars4sale.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
-FEED_URI = 'file:///tmp/cars4sale.jl'
-FEED_FORMAT = 'jsonlines'
+#FEED_URI = 'file:///tmp/cars4sale.jl'
+#FEED_FORMAT = 'jsonlines'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -68,8 +68,11 @@ COOKIES_ENABLED = False
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'cars4sale.pipelines.Cars4SalePipeline': 300,
+#    'cars4sale.pipelines.MongoPipeline': 300
 #}
+
+#MONGO_URI = 'mongodb://localhost:27017/'
+#MONGO_DATABASE = 'cars4sale'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
