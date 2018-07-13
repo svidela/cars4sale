@@ -19,7 +19,7 @@ NEWSPIDER_MODULE = 'cars4sale.spiders'
 #USER_AGENT = 'cars4sale (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = False
+ROBOTSTXT_OBEY = True
 
 #FEED_URI = 'file:///tmp/cars4sale.jl'
 #FEED_FORMAT = 'jsonlines'
@@ -30,7 +30,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 2
+DOWNLOAD_DELAY = 2
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
