@@ -5,4 +5,4 @@ Scrapy project
  - deautos
  - demotores
  - mercadolibre
- - olx
+ - olx (Forbidden by robots.txt)
