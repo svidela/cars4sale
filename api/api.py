@@ -2,22 +2,11 @@ from flask import Blueprint, Response, jsonify, g, request
 from bson import json_util, son
 from flask_pymongo import pymongo
 
-import numpy as np
 import pandas as pd
 
+from .utils import build_query, outliers_modified_z_score
+
 bp = Blueprint('api', __name__, url_prefix='/api')
-
-def outliers_modified_z_score(ys):
-    threshold = 3
-
-    median_y = np.median(ys)
-    median_absolute_deviation_y = np.median(np.abs(ys - median_y))
-    modified_z_scores = 0.6745 * (ys - median_y) / median_absolute_deviation_y
-    return np.abs(modified_z_scores) > threshold
-
-def build_query(**kwargs):
-    query = {k: v.replace('_',' ').upper() for k,v in kwargs.items()}
-    return query
 
 @bp.route('/brands', methods=['GET'])
 def get_brands():
