@@ -4,7 +4,7 @@ from flask_pymongo import pymongo
 
 import pandas as pd
 
-from .utils import build_query, outliers_modified_z_score
+from .utils import build_query, outliers_modified_z_score, outliers_iqr
 
 bp = Blueprint('api', __name__, url_prefix='/api')
 
@@ -74,6 +74,7 @@ def get_grouped_ads(**kwargs):
         for group in agg:
             ads = pd.DataFrame(group['ads'])
             ads = ads.loc[~outliers_modified_z_score(ads.price)]
+            ads = ads.loc[~outliers_iqr(ads.price)]
             ads = ads[(ads.price >= ads.price.quantile(0.05)) & (ads.price <= ads.price.quantile(0.95))]
 
             output.append({'_id': group['_id'], 'ads': ads.to_dict('records')})
