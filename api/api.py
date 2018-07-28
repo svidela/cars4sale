@@ -26,10 +26,15 @@ def get_versions(**kwargs):
 def get_ads(**kwargs):
     limit = request.args.get('limit', default=0, type=int)
     offset = max(0, request.args.get('offset', default=0, type=int))
-    sort_by = request.args.get('sort_by', default='_id')
+    sort_by = request.args.get('sort_by', default='year')
     sort_dir = request.args.get('sort_dir', default='ASC')
 
-    ads = g.db.ads.find(build_query(**kwargs), projection={"_id": 0, "date": 0})\
+    query = build_query(**kwargs)
+    year = request.args.get('year', type=int)
+    if year is not None:
+        query['year'] = year
+
+    ads = g.db.ads.find(query, projection={"_id": 0, "date": 0})\
                   .sort(sort_by, pymongo.ASCENDING if sort_dir == 'ASC' else pymongo.DESCENDING)\
                   .limit(limit)\
                   .skip(offset)
